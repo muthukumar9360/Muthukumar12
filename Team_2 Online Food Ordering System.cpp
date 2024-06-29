@@ -8,6 +8,7 @@
 using namespace std;
 
 string phno;
+int cop=1;
 
 class MenuItem
 {
@@ -17,6 +18,8 @@ protected:
     float fp,fp1,tp;
     char ch;
     string dis="district.txt";
+    float rating;
+    string sf;
 public:
     MenuItem() {}
     ~MenuItem() {}
@@ -66,7 +69,7 @@ error:
             cout<<"\n\n\n\n\t\t\t\t    CUSTOMER";
             cout<<"\n\t\t\t\t    __________\n";
         }
-        cout<<"\n\n\n\t\t\t\t1) SIGNUP [CREATE AN NEW ACCOUNT]\n\n\t\t\t\t2) LOGIN [ALREADY ACCOUNT EXIST]\n\n\t\t\t\t3) BACK TO HOME PAGE ";
+        cout<<"\n\n\n\t\t\t\t1) SIGNUP [CREATE AN NEW ACCOUNT]\n\n\t\t\t\t2) LOGIN [ALREADY ACCOUNT EXISTS]\n\n\t\t\t\t3) BACK TO HOME PAGE ";
         cout<<"\n\n\n\t\t\t\tENTER YOUR OPTION : ";
         cin>>choice;
         if(choice==1)
@@ -241,10 +244,10 @@ check:
     void login()
     {
         ifstream f1;
-        cerr<<"\n\n\t\t\t\tNOTE : PLEASE LOGIN USING YOUR USERID AND PASSWORD....\n\n";
+        cerr<<"\n\n\n\n\t\t\t\tNOTE : PLEASE LOGIN USING YOUR USERID AND PASSWORD....\n\n";
         if(option==1)
         {
-            cout<<"\n\n\n\n\n\t\t\t\t  | LOGIN PAGE [MANAGER] |";
+            cout<<"\n\n\n\t\t\t\t  | LOGIN PAGE [MANAGER] |";
             cout<<"\n\t\t\t\t   ______________________\n";
             f1.open("manager.txt");
         }
@@ -265,6 +268,14 @@ check:
             {
                 c=1;
                 ::phno=ph1;
+                if(option==1)
+                {
+                    ::cop=1;
+                }
+                else if(option==2)
+                {
+                    ::cop=2;
+                }
                 break;
             }
         }
@@ -300,10 +311,11 @@ retry:
         int c;
         cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t              MAIN MENU\n";
         cout<<"\t\t\t\t\t\t\t\t\t\t\t            _____________\n";
+        cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
         if(option==1)
         {
-            cout<<"\n\n\t\t\t\t1) DISPLAY THE ITEMS \n\n\t\t\t\t2) ADD AN NEW ITEM \n\n\t\t\t\t3) UPDATE AN EXISTING ITEM \n\n\t\t\t\t4) DELETE AN EXISTING ITEM \n\n\t\t\t\t5) VIEW YOUR PROFILE \n\n\t\t\t\t6) VIEW ORDER DETAILS \n\n\t\t\t\t7) BACK TO HOME PAGE [QUIT]\n\n\n\t\t\t\tENTER YOUR OPTION : ";
+            cout<<"\n\n\t\t\t\t1) DISPLAY THE ITEMS \n\n\t\t\t\t2) ADD AN NEW ITEM \n\n\t\t\t\t3) UPDATE AN EXISTING ITEM \n\n\t\t\t\t4) DELETE AN EXISTING ITEM \n\n\t\t\t\t5) VIEW YOUR PROFILE \n\n\t\t\t\t6) VIEW ORDER DETAILS \n\n\t\t\t\t7) VIEW CUSTOMERS RATING AND FEEDBACK \n\n\t\t\t\t8) BACK TO HOME PAGE [QUIT]\n\n\n\t\t\t\tENTER YOUR OPTION : ";
             cin>>c;
             try
             {
@@ -338,6 +350,11 @@ retry:
                     orderdetails();
                 }
                 else if(c==7)
+                {
+                    system("cls");
+                    ratfeed();
+                }
+                else if(c==8)
                 {
                     mainmenu();
                 }
@@ -401,8 +418,54 @@ retry:
             }
         }
     }
+    void ratfeed()
+    {
+        cout<<endl<<endl;
+        cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t***RATINGS AND FEEDBACKS***"<<endl<<endl;
+        int i=1;
+        ifstream f("ratingfeedback.txt");
+        if(!f)
+        {
+            cout<<"\n\n\n\t\t\t\tCURRENTLY NO RATINGS OR FEEDBACKS AVAILABLE ....";
+        }
+        while (f >> userid1 >> gmail1 >> ph1 >> rating)
+        {
+            cout<<"\n\t\t\t"<<i<<")";
+            f.ignore();
+            getline(f, sf);
+            cout << "\n\t\t\t\tUSER ID      : " << userid1 << "\n\t"
+                 << "\t\t\tEMAIL ID     : " << gmail1 << "\n\t"
+                 << "\t\t\tPHONE NUMBER : " << ph1 << "\n\t"
+                 << "\t\t\tRATING       : " << rating << "\n\t"
+                 << "\t\t\tFEEDBACK     : " << sf << "\n\t";
+                 cout<<endl<<endl;
+                 i++;
+        }
+        f.close();
+        cout<<"\n\n\n\t\t\t\tENTER [C] TO CONTINUE | [R] TO REMOVE FEEDBACKS .... ";
+        cin>>ch;
+        if(ch=='c' || ch=='C')
+        {
+            system("cls");
+            food();
+        }
+        else if(ch=='R' || ch=='r')
+        {
+            remove("ratingfeedback.txt");
+            system("cls");
+            cout<<"\n\n\n\n\n\t\t\t\t\t\t\t\t\t\t\t    ***FEEDBACKS REMOVED SUCCESSFULLY***";
+            ratfeed();
+        }
+        else
+        {
+            system("cls");
+            ratfeed();
+        }
+    }
     void orderdetails()
     {
+        cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
         ifstream f("order.txt");
         string id,d,t;
@@ -443,9 +506,9 @@ retry:
         ifstream f("foodlist.txt");
         cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
-        cout<<"\n\t\t\t\t\t\t\t\t____________________________________________________________________________________"<<endl;
-        cout<<"\n\t\t\t\t\t\t\t\t"<<setw(8)<<left<<"|  ID No.  "<<setw(25)<<left<<"|      FOOD NAME "<<setw(15)<<left<<"|     TYPE  "<<setw(10)<<left<<"   |    PRICE   "<<setw(1)<<left<<" |  DISCOUNT[%] |"<<endl;
-        cout<<"\t\t\t\t\t\t\t\t____________________________________________________________________________________"<<endl;
+        cout<<"\n\t\t\t\t\t\t\t\t_____________________________________________________________________________________"<<endl;
+        cout<<"\n\t\t\t\t\t\t\t\t"<<setw(8)<<left<<"|  ID No.  "<<setw(25)<<left<<"|      FOOD NAME "<<setw(15)<<left<<"|     TYPE"<<setw(15)<<left<<"  |    PRICE     "<<setw(1)<<left<<" |  DISCOUNT[%] |"<<endl;
+        cout<<"\t\t\t\t\t\t\t\t_____________________________________________________________________________________"<<endl;
         if(f.peek()==EOF)
         {
             cerr<<"\n\n\t\t\t\t\t\t\tERROR : CURRENTLY NO ITEMS AVAILABLE \n";
@@ -454,8 +517,8 @@ retry:
         {
             while(f>>fid1>>fn1>>ft1>>fp1>>fdis1)
             {
-                cout<<"\n\t\t\t\t\t\t\t\t|  "<<setw(8)<<left<<fid1<<"|  \t"<<setw(14)<<left<<fn1<<"      |\t  "<<setw(10)<<left<<ft1<<"  |\t  "<<setw(11)<<left<<fp1<<"|   "<<setw(11)<<left<<fdis1<<'|'<<endl;
-                cout<<"\t\t\t\t\t\t\t\t____________________________________________________________________________________"<<endl;
+                cout<<"\n\t\t\t\t\t\t\t\t|  "<<setw(8)<<left<<fid1<<"|  \t"<<setw(14)<<left<<fn1<<"      |\t "<<setw(10)<<left<<ft1<<"  |\t  "<<setw(10)<<left<<fp1<<" |   "<<setw(11)<<left<<fdis1<<'|'<<endl;
+                cout<<"\t\t\t\t\t\t\t\t_____________________________________________________________________________________"<<endl;
             }
         }
         f.close();
@@ -475,6 +538,7 @@ retry:
     void add()
     {
 retry1:
+        cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
         cout<<"\n\n\t\t\t\t\t\t\t*** ADD NEW ITEM ***"<<endl<<endl;
         cout<<"\n\t\t\t\tENTER FOOD ID    : ";
@@ -527,6 +591,7 @@ retry1:
     void update()
     {
 retry2:
+        cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
         cout<<"\n\n\t\t\t\t\t\t\t*** UPDATE AN ITEM ***"<<endl<<endl;
         cout<<"\n\t\t\t\tENTER THE ID OF THE FOOD THAT YOU WANT TO UPDATE : ";
@@ -608,6 +673,7 @@ ch:
     void del()
     {
 retry1:
+        cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
         cout<<"\n\n\t\t\t\t\t\t\t*** DELETE AN ITEM ***"<<endl<<endl;
         cout<<"\n\t\t\t\tENTER THE ID OF THE FOOD THAT YOU WANT TO DELETE : ";
@@ -712,6 +778,7 @@ retry1:
             if(uid==userid1)
             {
                 retry:
+                cout<<endl<<endl;
                 cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
                 cout<<"\n\n\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
                 cout<<"\n\t\t\t\t\t\t\t   ________________   "<<endl<<endl;
@@ -860,6 +927,7 @@ retry1:
     {
         string ouser=uid+".txt";
         ifstream f(ouser);
+        cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
         cout<<"\n\n\t\t\t\t\t\t\t***** CART ITEMS *****";
         cout<<"\n\t\t\t\t\t\t\t______________________\n\n";
@@ -1045,7 +1113,6 @@ retry1:
             goto ch;
         }
     }
-
     void addtocart()
     {
         string ouser=uid+".txt";
@@ -1053,6 +1120,7 @@ retry1:
         ifstream f("foodlist.txt");
         ofstream f1(ouser,ios::app);
 retry:
+        cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
         cout<<"\n\n\t\t\t\t\t\t\t*** ADD TO CART LIST ***";
         cout<<"\n\t\t\t\t\t\t\t________________________\n\n";
@@ -1117,6 +1185,7 @@ retry:
         string ouser=uid+".txt";
         float fp,tp;
 retry:
+        cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
         cout<<"\n\n\t\t\t\t\t\t\t*** DELETE FROM CART LIST ***";
         cout<<"\n\t\t\t\t\t\t\t_____________________________\n\n";
@@ -1170,8 +1239,6 @@ protected:
     string seasonaldish;
     float pricecs,pricesd,tp;
     int dispricecs,dispricesd;
-    float rating;
-    string sf;
 public:
     SpecialMenu(string cs,float pc,int dpc,string s,float ps,int dsd)
     {
@@ -1185,7 +1252,74 @@ public:
     friend void calculatediscount(SpecialMenu &sp);
     friend ostream& operator<<(ostream& os, const SpecialMenu& sp);
     ~SpecialMenu() {}
-    void display()
+    void ratingfeedback()
+    {
+        int c=0;
+        retry:
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** RATING PAGE ***";
+        cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t___________________";
+        cout<<"\n\n\n\t\t\t\tNOTE : PLEASE RATE OUR SERVICE AND PROVIDE YOUR FEEDBACK....."<<endl;
+        cout<<"\n\n\t\t\t\tENTER YOUR USER ID        : ";
+        cin>>userid;
+        cout<<"\n\t\t\t\tENTER YOUR EMAIL ID       : ";
+        cin>>gmail;
+        cout<<"\n\t\t\t\tENTER YOUR PHONE NUMBER   : ";
+        cin>>ph;
+        ifstream f1("customer.txt");
+        while(f1>>userid1>>pass1>>name1>>gmail1>>dob1>>ph1>>gender1)
+        {
+            if(userid==userid1 && gmail==gmail1 && ph==ph1)
+            {
+                c=1;
+                retry1:
+                cout<<"\n\t\t\t\tENTER RATING ( out of 5 ) : ";
+                cin>>rating;
+                if(rating>5.0)
+                {
+                    system("cls");
+                    cout<<"\n\t\t\t\tERROR : PLEASE PROVIDE RATING FOR OUT OF 5 ";
+                    goto retry1;
+                }
+                cout<<"\n\t\t\t\tPROVIDE FEEDBACK TO US    : ";
+                cin.ignore();
+                getline(cin,sf);
+                ofstream f("ratingfeedback.txt",ios::app);
+                {
+                    f<<left<<setw(25)<<userid<<left<<setw(30)<<gmail<<left<<setw(15)<<ph<<left<<setw(10)<<rating<<endl;
+                    f<<sf<<endl;
+                    if(rating<2.5)
+                    {
+                        cout<<"\n\n\n\t\t\t\tSORRY FOR THE INCONVINENCE THAT YOU FACE . WE TRY TO RECTIFY IT ...."<<endl<<endl;
+                    }
+                }
+                cout<<"\n\t\t\t\t\t\t\t\t\t\t    THANK YOU FOR PROVIDE YOUR RATING AND FEEDBACK ";
+                f.close();
+                break;
+            }
+        }
+        f1.close();
+        if(c==0)
+        {
+            system("cls");
+            cout<<"\n\n\t\t\t\tERROR : PLEASE ENTER THE CORRECT DETAILS...\n";
+            goto retry;
+        }
+        else
+        {
+            ret:
+            cout<<"\n\n\n\n\n\n\t\t\t\tENTER [C] TO CONTINUE ....";
+            cin>>ch;
+            if(ch=='c' || ch=='C')
+            {
+                return;
+            }
+            else
+            {
+                goto ret;
+            }
+        }
+    }
+    void display() override
     {
         cout<<"\n\n\n\t\t\t\tSPECIAL DISHES LIST"<<endl;
         cout<<"\t\t\t\t-------------------"<<endl<<endl;
@@ -1254,26 +1388,40 @@ void calculatediscount(SpecialMenu &sp)
 
 int main()
 {
+    MenuItem mn;
+    mn.mainmenu();
     SpecialMenu sm("LOBSTER",1000,10,"BARBEQUE",2000,20);
-    sm.mainmenu();
+    calculatediscount(sm);
     MenuItem *m;
     m=&sm;
-    calculatediscount(sm);
-    retry:
-    m->display();
-    cout<<sm;
-    int res=sm.displaybranch();
-    if(res==0)
+    if(cop==2)
+    {
+        system("cls");
+        sm.ratingfeedback();
+        retry:
+        system("cls");
+        m->display();
+        cout<<sm;
+        int res=sm.displaybranch();
+        if(res==0)
+        {
+            system("cls");
+            cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t   _________________ \n";
+            cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t   | ..THANK YOU.. | ";
+            cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t   _________________ \n\n"<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<"\n\n\n\n";;
+        }
+        else
+        {
+            system("cls");
+            goto retry;
+        }
+    }
+    else
     {
         system("cls");
         cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t   _________________ \n";
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t   | ..THANK YOU.. | ";
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t   _________________ \n\n"<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<"\n\n\n\n";;
-    }
-    else
-    {
-        system("cls");
-        goto retry;
     }
     return 0;
 }
