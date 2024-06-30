@@ -27,13 +27,14 @@ public:
     void mainmenu()
     {
         system("cls");
+        error:
         cout<<"\n\n\t\t\t\t\t\t\t\t\t\t\t__________________________________________\n\n";
         cout<<"\t\t\t\t\t\t\t\t\t\t\t| WELCOME TO ONLINE FOOD ORDERING SYSTEM |\n";
         cout<<"\t\t\t\t\t\t\t\t\t\t\t__________________________________________\n"<<endl<<endl;
-error:
-        cout<<"\n\n\t\t\t\t\t\t\t\t\t\t\t              -----------\n";
-        cout<<"\t\t\t\t\t\t\t\t\t\t\t               HOME PAGE\n";
-        cout<<"\t\t\t\t\t\t\t\t\t\t\t              -----------\n"<<endl<<endl<<endl<<endl<<endl;
+        cout<<"\t\t\t\t\t\t\t   \" ORDER YOUR FAVOURITE MEALS ONLINE AND ENJOY THE DELICIOUSNESS DELIVERED TO YOUR DOORSTEP WITH EASE \""<<endl;
+        cout<<"\n\n\t\t\t\t\t\t\t\t\t\t\t               -----------\n";
+        cout<<"\t\t\t\t\t\t\t\t\t\t\t                HOME PAGE\n";
+        cout<<"\t\t\t\t\t\t\t\t\t\t\t               -----------\n"<<endl<<endl<<endl<<endl<<endl;
         cout<<"\n\t\t\t\t1) MANAGER PAGE \n\n\t\t\t\t2) CUSTOMER PAGE \n\n\t\t\t\t3) EXIT [QUIT]\n\n\n\t\t\t\tENTER YOUR OPTION : ";
         cin>>option;
         system("cls");
@@ -179,7 +180,7 @@ check:
             cout<<"\n\t\t\t\tENTER COMPANY'S SECRET PASSWORD : ";
             cin>>sp;
         }
-        if((sc==2024 && sp=="Mass12" && option==1) || option==2)
+        if((sc==1234 && sp=="mass" && option==1) || option==2)
         {
             ifstream f1;
             ofstream f;
@@ -422,7 +423,8 @@ retry:
     {
         cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
-        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t***RATINGS AND FEEDBACKS***"<<endl<<endl;
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t***RATINGS AND FEEDBACKS***"<<endl;
+        cout<<"\t\t\t\t\t\t\t\t\t\t\t\t___________________________"<<endl<<endl;
         int i=1;
         ifstream f("ratingfeedback.txt");
         if(!f)
@@ -511,7 +513,7 @@ retry:
         cout<<"\t\t\t\t\t\t\t\t_____________________________________________________________________________________"<<endl;
         if(f.peek()==EOF)
         {
-            cerr<<"\n\n\t\t\t\t\t\t\tERROR : CURRENTLY NO ITEMS AVAILABLE \n";
+            cerr<<"\n\n\t\t\t\t\t\t\t\t\t\t\tERROR : CURRENTLY NO ITEMS AVAILABLE \n";
         }
         else
         {
@@ -540,7 +542,8 @@ retry:
 retry1:
         cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
-        cout<<"\n\n\t\t\t\t\t\t\t*** ADD NEW ITEM ***"<<endl<<endl;
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** ADD NEW FOOD ITEMS ***";
+        cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t__________________________"<<endl<<endl;
         cout<<"\n\t\t\t\tENTER FOOD ID    : ";
         cin>>fid;
         cout<<"\n\t\t\t\tENTER FOOD NAME  : ";
@@ -567,7 +570,7 @@ retry1:
             ofstream f("foodlist.txt",ios::app);
             f<<left<<setw(10)<<fid<<' '<<left<<setw(20)<<fn<<' '<<left<<setw(15)<<ft<<' '<<left<<setw(10)<<fp<<' '<<left<<setw(10)<<fdis<<endl;
             f.close();
-            cout<<"\n\n\n\t\t\t\t\t\t   ***** ITEM ADDED SUCCESSFULLY *****\n\n\n";
+            cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t***** ITEM ADDED SUCCESSFULLY *****\n\n\n";
         }
         else
         {
@@ -593,7 +596,8 @@ retry1:
 retry2:
         cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
-        cout<<"\n\n\t\t\t\t\t\t\t*** UPDATE AN ITEM ***"<<endl<<endl;
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** UPDATE FOOD ITEMS ***";
+        cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t_________________________"<<endl<<endl;
         cout<<"\n\t\t\t\tENTER THE ID OF THE FOOD THAT YOU WANT TO UPDATE : ";
         cin>>fid;
         ifstream f("foodlist.txt");
@@ -656,7 +660,7 @@ ch:
         }
         remove("foodlist.txt");
         rename("temp.txt","foodlist.txt");
-        cout<<"\n\n\n\t\t\t\t\t\t ***** ITEM UPDATED SUCCESSFULLY *****\n\n\n";
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t***** ITEM UPDATED SUCCESSFULLY *****\n\n\n";
         cout<<"\n\t\t\t\tDO YOU WANT TO UPDATE MORE ITEMS (Y/N) : ";
         cin>>ch;
         if(ch=='y' || ch=='Y')
@@ -675,7 +679,8 @@ ch:
 retry1:
         cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
-        cout<<"\n\n\t\t\t\t\t\t\t*** DELETE AN ITEM ***"<<endl<<endl;
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** DELETE FOOD ITEMS ***";
+        cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t_________________________"<<endl<<endl;
         cout<<"\n\t\t\t\tENTER THE ID OF THE FOOD THAT YOU WANT TO DELETE : ";
         cin>>fid;
         ifstream f("foodlist.txt");
@@ -789,8 +794,8 @@ retry1:
                 system("cls");
                 if(op==1)
                 {
-                    cout<<"\n\n\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
-                    cout<<"\n\t\t\t\t\t\t\t   ________________   "<<endl<<endl;
+                    cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
+                    cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t______________________"<<endl<<endl;
                     cout<<"\n\n\n\t\t\t\tENTER FULLNAME [without spaces] : ";
                     cin.get();
                     getline(cin,temp);
@@ -799,8 +804,8 @@ retry1:
                 else if(op==2)
                 {
                     usps:
-                    cout<<"\n\n\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
-                    cout<<"\n\t\t\t\t\t\t\t   ________________   "<<endl<<endl;
+                    cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
+                    cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t______________________"<<endl<<endl;
                     cout<<"\n\n\n\n\n\t\t\t\tNOTE : [USERID AND PASSWORD CAN'T BE SAME....]\n";
                     cout<<"\n\n\n\t\t\t\tENTER YOUR NEW PASSWORD : ";
                     cin>>temp;
@@ -812,8 +817,8 @@ retry1:
                 }
                 else if(op==3)
                 {
-                    cout<<"\n\n\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
-                    cout<<"\n\t\t\t\t\t\t\t   ________________   "<<endl<<endl;
+                    cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
+                    cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t______________________"<<endl<<endl;
                     cout<<"\n\n\n\t\t\t\tENTER GENDER [Male/Female] : ";
                     cin>>temp;
                     f<<left<<setw(25)<<userid1<<' '<<left<<setw(25)<<pass1<<' '<<left<<setw(30)<<name1<<' '<<left<<setw(35)<<gmail1<<' '<<left<<setw(15)<<dob1<<' '<<left<<setw(15)<<ph1<<' '<<left<<setw(10)<<temp<<endl;
@@ -821,8 +826,8 @@ retry1:
                 else if(op==4)
                 {
                     phch:
-                        cout<<"\n\n\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
-                        cout<<"\n\t\t\t\t\t\t\t   ________________   "<<endl<<endl;
+                        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
+                        cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t______________________"<<endl<<endl;
                     cout<<"\n\n\n\t\t\t\tENTER NEW PHONE NUMBER [+91] : ";
                     cin>>temp;
                     try
@@ -843,8 +848,8 @@ retry1:
                 else if(op==5)
                 {
                     emch:
-                        cout<<"\n\n\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
-                        cout<<"\n\t\t\t\t\t\t\t   ________________   "<<endl<<endl;
+                        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
+                        cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t______________________"<<endl<<endl;
                     cout<<"\n\n\n\t\t\t\tENTER NEW EMAIL ID : ";
                     cin>>temp;
                     regex email_pattern("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$)");
@@ -866,8 +871,8 @@ retry1:
                 else if(op==6)
                 {
                     dobch:
-                        cout<<"\n\n\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
-                        cout<<"\n\t\t\t\t\t\t\t   ________________   "<<endl<<endl;
+                        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** UPDATE PROFILE ***";
+                        cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t______________________"<<endl<<endl;
                     cout<<"\n\n\n\t\t\t\tENTER NEW DOB (DD/MM/YY) : ";
                     cin>>temp;
                     try
@@ -909,7 +914,7 @@ retry1:
             remove("customer.txt");
             rename("temp.txt","customer.txt");
         }
-        cout<<"\n\n\n\t\t\t\t\t\t ***** PROFILE UPDATED SUCCESSFULLY *****\n\n\n";
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t    ***PROFILE UPDATED SUCCESSFULLY***\n\n\n";
         cout<<"\n\n\t\t\t\tDO YOU WANT TO UPDATE MORE DETAILS (Y/N) : ";
         cin>>ch;
         if(ch=='y' || ch=='Y')
@@ -929,8 +934,8 @@ retry1:
         ifstream f(ouser);
         cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
-        cout<<"\n\n\t\t\t\t\t\t\t***** CART ITEMS *****";
-        cout<<"\n\t\t\t\t\t\t\t______________________\n\n";
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t***** CART ITEMS *****";
+        cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t______________________"<<endl<<endl;
         int i=1;
         if(f.peek()==EOF)
         {
@@ -1122,8 +1127,8 @@ retry1:
 retry:
         cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
-        cout<<"\n\n\t\t\t\t\t\t\t*** ADD TO CART LIST ***";
-        cout<<"\n\t\t\t\t\t\t\t________________________\n\n";
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** ADD ITEMS TO CART ***";
+        cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t_________________________"<<endl<<endl;
         cout<<"\n\t\t\t\tENTER THE ID OF THE FOOD THAT YOU WANT TO ORDER : ";
         cin>>fid;
         int c=0;
@@ -1187,8 +1192,8 @@ retry:
 retry:
         cout<<endl<<endl;
         cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUSER ID : "<<uid<<endl<<endl;
-        cout<<"\n\n\t\t\t\t\t\t\t*** DELETE FROM CART LIST ***";
-        cout<<"\n\t\t\t\t\t\t\t_____________________________\n\n";
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t*** DELETE ITEMS IN CART ***";
+        cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t____________________________"<<endl<<endl;
         cout<<"\n\t\t\t\tENTER THE ID OF THE FOOD THAT YOU WANT TO REMOVE FROM YOUR CART : ";
         cin>>fid;
         ifstream f(ouser);
@@ -1216,7 +1221,7 @@ retry:
         }
         remove(ouser.c_str());
         rename("temp1.txt",ouser.c_str());
-        cout<<"\n\n\n\t\t\t\t\t\t *****ITEM REMOVED FROM THE CART SUCCESSFULLY*****\n\n\n";
+        cout<<"\n\n\n\t\t\t\t\t\t\t\t\t\t\t***ITEM REMOVED FROM CART SUCCESSFULLY***";
         cout<<"\n\t\t\t\tDO YOU WANT TO DELETE MORE ITEMS IN THE CART (Y/N) : ";
         cin>>ch;
         if(ch=='y' || ch=='Y')
