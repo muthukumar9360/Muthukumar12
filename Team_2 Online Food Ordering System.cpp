@@ -1285,7 +1285,7 @@ public:
                 getline(cin,sf);
                 ofstream f("ratingfeedback.txt",ios::app);
                 {
-                    f<<left<<setw(25)<<userid<<left<<setw(30)<<gmail<<left<<setw(15)<<ph<<left<<setw(10)<<rating<<endl;
+                    f<<left<<setw(25)<<userid<<left<<setw(30)<<gmail<<left<<setw(15)<<ph<<left<<setw(10)<<rating<<' ';
                     f<<sf<<endl;
                     if(rating<2.5)
                     {
